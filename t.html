@@ -1,0 +1,78 @@
+<html >
+<head>
+  <meta charset="utf-8">
+
+  <title></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="clmtrackr.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <div class='center'>
+    <div id='stuff'>~~~היי~~~</div>
+  </div>
+  
+  <script type="text/javascript">
+    faceSize = 0;
+    
+    function update(){
+      fontSize = 100 - faceSize - 20;
+      $('#stuff').css('font-size',fontSize)
+      shadow = "10px 0px "+(fontSize-10)+"px black"
+      $('#stuff').css('text-shadow',shadow)
+      $('#stuff').css('color','transparent')
+    }
+    
+    
+    // ------------------------
+    // ------- GET SIZE -------
+    // ------------------------
+    $('body').append('<video id="video" width="640" height="480" autoplay></video>')
+    var video = document.getElementById('video');
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+            $('#video').css('display','none')
+        });
+    }
+    var videoInput = document.getElementById('video');
+
+    var ctracker = new clm.tracker();
+    ctracker.init();
+    ctracker.start(videoInput);
+
+    function positionLoop() {
+      requestAnimationFrame(positionLoop);
+      var positions = ctracker.getCurrentPosition();
+      minX = 1000;
+      maxX = 0;
+      minY = 1000;
+      maxY = 0
+      for (i =0;i<positions.length;i++){
+        position = positions[i]
+        minX = Math.min(minX,position[0])
+        minY = Math.min(minY,position[1])
+        maxX = Math.max(maxX,position[0])
+        maxY = Math.max(maxY,position[1])
+      };
+      width = maxX-minX;
+      height = maxY-minY;
+      size = width*height;
+      if (size != 1000*1000){
+        size = parseInt(size/500)
+        if (size != faceSize){
+          faceSize = size;
+          update();
+        }
+      }
+    }
+    positionLoop();
+  </script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,17 @@
+body{
+  background-color: antiquewhite;
+}
+
+.center{
+  width:100%;
+}
+
+#stuff{
+  color:transparent;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+}
