@@ -15,3 +15,27 @@ body{
   transform: translateY(-50%);
   transform: translateX(-50%);
 }
+
+.p1{
+  color: #222;
+  font-family: helvetica;
+  line-height: 1.2em;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.p2, p3{
+  color: #222;
+  font-family: helvetica;
+  line-height: 1.5em;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.p3{
+  color: #222;
+  font-family: helvetica;
+  line-height: 2em;
+  font-weight: 700;
+  font-size: 30px;
+}
